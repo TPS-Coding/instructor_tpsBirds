@@ -14,11 +14,9 @@ class GamePlay(BaseState):
     def __init__(self):
         super(GamePlay, self).__init__()
         self.next_state = "GAMEOVER"
-
         self.status = ""
         self.score = 0
         self.time_active = 0
-
         self.paused = False
 
         self.load_assets()
@@ -29,14 +27,12 @@ class GamePlay(BaseState):
             'hit':Timer(2000, autostart=True),
             'fireball': Timer(3000),
         }
-
         #Sprite groups
         self.all_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
         self.fire_sprites = pygame.sprite.Group()
 
         ##Sprites
-        
         self.bg = BG(self.all_sprites)
         self.player = Player(self.all_sprites, self.player_frames)
 
@@ -73,7 +69,6 @@ class GamePlay(BaseState):
         self.time_active = 0
         self.all_sprites.empty()
         self.collision_sprites.empty()
-
         self.all_sprites.add(self.bg)
         self.player = Player(self.all_sprites, self.player_frames)
         
@@ -91,7 +86,6 @@ class GamePlay(BaseState):
             self.obs1 = Obstacle((self.all_sprites,self.collision_sprites),x,y, "ob1")
             y += 680 + 350
             self.obs2 = Obstacle((self.all_sprites,self.collision_sprites),x,y, "ob2")
-
             self.timers['obstacle'].activate()
 
     def check_collisions(self, dt):
@@ -119,9 +113,7 @@ class GamePlay(BaseState):
     def draw(self, window):
         window.fill(pygame.Color('black'))
         self.all_sprites.draw(window)
-
         window.blit(self.score_text, self.score_rect)
-
         if self.paused:
             window.blit(self.paused_text, self.paused_rect)
 
@@ -129,8 +121,8 @@ class GamePlay(BaseState):
         if not self.paused:
             self.add_score()
             self.persist['score'] = self.score
-
             self.spawn_obstacles()
+            
             if not self.timers['hit'].active:
                 self.check_collisions(dt)
 
