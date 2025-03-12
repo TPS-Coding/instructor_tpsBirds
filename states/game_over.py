@@ -15,10 +15,9 @@ class GameOver(BaseState):
         instruction_center = (self.window_rect.center[0], self.window_rect.center[1]+ -150)
         self.instruction_rect = self.instruction.get_frect(center = instruction_center)
 
+        ## Sprite Group
         self.all_sprites = pygame.sprite.Group()
-        #self.bg_image = pygame.image.load("graphics/backgrounds/1.png")
-        #self.bg_image = pygame.transform.scale(self.bg_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
-        #self.bg_rect = self.bg_image.get_frect(topleft = (0,0))
+        ## Sprite
         self.bg = BG(self.all_sprites)
 
     def startup(self, persistent):
@@ -40,7 +39,6 @@ class GameOver(BaseState):
     
     def draw(self, window):
         window.fill(pygame.Color('black'))
-        #window.blit(self.bg_image, self.bg_rect)
         self.all_sprites.draw(window)
         window.blit(self.title, self.title_rect)
         window.blit(self.final_score, self.score_rect)
